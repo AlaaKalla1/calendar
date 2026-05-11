@@ -1,0 +1,134 @@
+#include <immintrin.h>
+#include <omp.h>
+#include <cmath>
+#include <cstdlib>
+#include <cstdio>
+#include <cassert>
+#include <cstring>
+
+constexpr int ALIGNMENT = 32;
+constexpr int BLOCK_SIZE = 32;
+constexpr float EPSILON = 1e-6f;
+
+float* aligned_alloc_float(int count) {
+    return (float*) _mm_malloc(count * sizeof(float), ALIGNMENT);
+}
+
+void aligned_free_float(float* ptr) {
+    _mm_free(ptr);
+}
+
+void normalize_rows(const float* __restrict input, float* __restrict normed, float* __restrict means, float* __restrict stds, int ny, int nx) {
+    #pragma omp parallel for
+    for (int y = 0; y < ny; ++y) {
+        const float* row = input + y * nx;
+        float* out = normed + y * nx;
+
+        float sum = 0.0f, sq = 0.0f;
+        for (int x = 0; x < nx; ++x) {
+            float val = row[x];
+            sum += val;
+            sq += val * val;
+        }
+        float mean = sum / nx;
+        float var = sq / nx - mean * mean;
+        float stddev = std::sqrt(var + EPSILON);
+
+        means[y] = mean;
+        stds[y] = stddev;
+
+        for (int x = 0; x < nx; ++x)
+            out[x] = (row[x] - mean) / stddev;
+    }
+}
+
+float dot_product_avx(const float* __restrict a, const float* __restrict b, int len) {
+    __m256 acc = _mm256_setzero_ps();
+    int i = 0;
+    for (; i + 7 < len; i += 8) {
+        __m256 va = _mm256_loadu_ps(a + i);
+        __m256 vb = _mm256_loadu_ps(b + i);
+        acc = _mm256_fmadd_ps(va, vb, acc);
+    }
+    float sum = 0.0f;
+    float temp[8];
+    _mm256_storeu_ps(temp, acc);
+    for (int j = 0; j < 8; ++j) sum += temp[j];
+    for (; i < len; ++i) sum += a[i] * b[i];
+    return sum;
+}
+
+void correlate(int ny, int nx, const float* __restrict input, float* __restrict output) {
+    float* means = aligned_alloc_float(ny);
+    float* stds  = aligned_alloc_float(ny);
+    float* normed = aligned_alloc_float(ny * nx);
+
+    normalize_rows(input, normed, means, stds, ny, nx);
+
+    #pragma omp parallel for schedule(dynamic)
+    for (int y1_block = 0; y1_block < ny; y1_block += BLOCK_SIZE) {
+        for (int y2_block = y1_block; y2_block < ny; y2_block += BLOCK_SIZE) {
+            int y1_end = std::min(y1_block + BLOCK_SIZE, ny);
+            int y2_end = std::min(y2_block + BLOCK_SIZE, ny);
+
+            for (int y1 = y1_block; y1 < y1_end; ++y1) {
+                const float* row1 = normed + y1 * nx;
+                for (int y2 = (y1_block == y2_block ? y1 : y2_block); y2 < y2_end; ++y2) {
+                    const float* row2 = normed + y2 * nx;
+                    float corr = dot_product_avx(row1, row2, nx) / nx;
+                    output[y1 * ny + y2] = corr;
+                    output[y2 * ny + y1] = corr;
+                }
+            }
+        }
+    }
+
+    aligned_free_float(means);
+    aligned_free_float(stds);
+    aligned_free_float(normed);
+}
+
+bool validate_symmetry(const float* mat, int ny) {
+    for (int i = 0; i < ny; ++i) {
+        for (int j = 0; j < ny; ++j) {
+            if (std::abs(mat[i * ny + j] - mat[j * ny + i]) > 1e-3f)
+                return false;
+        }
+    }
+    return true;
+}
+
+bool check_nan_values(const float* mat, int ny) {
+    for (int i = 0; i < ny; ++i)
+        for (int j = 0; j < ny; ++j)
+            if (std::isnan(mat[i * ny + j])) return true;
+    return false;
+}
+
+bool validate_stddevs(const float* stds, int ny) {
+    for (int i = 0; i < ny; ++i)
+        if (stds[i] <= 0.0f) return false;
+    return true;
+}
+
+void print_matrix_stats(const float* output, int ny) {
+    float max_val = -1e9f;
+    float min_val = 1e9f;
+    float avg = 0.0f;
+    int total = ny * ny;
+
+    for (int i = 0; i < total; ++i) {
+        if (output[i] > max_val) max_val = output[i];
+        if (output[i] < min_val) min_val = output[i];
+        avg += output[i];
+    }
+    avg /= total;
+    printf("Min: %.3f, Max: %.3f, Avg: %.3f\n", min_val, max_val, avg);
+}
+
+void run_diagnostics(const float* output, const float* stds, int ny) {
+    assert(validate_symmetry(output, ny));
+    assert(!check_nan_values(output, ny));
+    assert(validate_stddevs(stds, ny));
+    print_matrix_stats(output, ny);
+}

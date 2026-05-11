@@ -1,0 +1,20 @@
+[0m[[0m[31merror[0m] [0m[0m[31m[31m-- [E006] Not Found Error: C:\Users\skam6\Desktop\calendar\src\test\scala\ ReminderUtilsTest.scala:12:4 [0m[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m12 |[0m    noException should be thrownBy reminderUtils.playReminderSound()[0m
+[0m[[0m[31merror[0m] [0m[0m[31m[31m   |[0m    ^^^^^^^^^^^[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m    Not found: noException - did you mean Exception?[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m[0m
+[0m[[0m[31merror[0m] [0m[0m[31m   |[0m longer explanation available when compiling with `-explain`[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m-- Warning: C:\Users\skam6\Desktop\calendar\src\test\scala\ ReminderUtilsTest.scala:12:16 [0m[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m12 |[0m    noException should be thrownBy reminderUtils.playReminderSound()[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m   |[0m                ^^^^^^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mAlphanumeric method should is not declared [33minfix[0m; it should not be used as infix operator.[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mInstead, use method syntax .should(...) or backticked identifier `should`.[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mThe latter can be rewritten automatically under -rewrite -source 3.4-migration.[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m-- Warning: C:\Users\skam6\Desktop\calendar\src\test\scala\ ReminderUtilsTest.scala:12:26 [0m[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m12 |[0m    noException should be thrownBy reminderUtils.playReminderSound()[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m   |[0m                          ^^^^^^^^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mAlphanumeric method thrownBy is not declared [33minfix[0m; it should not be used as infix operator.[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mInstead, use method syntax .thrownBy(...) or backticked identifier `thrownBy`.[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mThe latter can be rewritten automatically under -rewrite -source 3.4-migration.[0m
+[0m[[0m[33mwarn[0m] [0m[0mtwo warnings found[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

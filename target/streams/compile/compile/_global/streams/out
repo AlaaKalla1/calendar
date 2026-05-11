@@ -1,0 +1,6 @@
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m-- Warning: C:\Users\skam6\Desktop\calendar\src\main\scala\Main.scala:62:39 ----[0m[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m62 |[0m      items.value.addAll([31m2000[0m to [31m2030[0m: [35m_*[0m)[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m[33m   |[0m                                       ^[0m[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mThe syntax `x: _*` is no longer supported for vararg splices; use `x*` instead[0m
+[0m[[0m[33mwarn[0m] [0m[0m[33m   |[0mThis construct can be rewritten automatically under -rewrite -source 3.4-migration.[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m

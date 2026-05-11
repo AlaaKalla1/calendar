@@ -1,0 +1,74 @@
+2026.05.11 16:54:57 INFO  Started: Metals version 1.6.7+37-19751e76-SNAPSHOT in folders 'C:\Users\skam6\Desktop\calendar 2025' for client Visual Studio Code 1.119.0.
+2026.05.11 16:54:57 INFO  Memory monitor started
+2026.05.11 16:54:57 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.11 16:54:58 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+May 11, 2026 4:55:03 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 2
+May 11, 2026 4:55:03 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 1
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:03 WARN  no build target for: C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+May 11, 2026 4:55:03 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 8
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+May 11, 2026 4:55:04 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 13
+2026.05.11 16:55:03 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:08 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:09 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:09 INFO  running 'C:\Program Files\Microsoft\jdk-21.0.6.7-hotspot\bin\java.exe -Djline.terminal=jline.UnsupportedTerminal -Dsbt.log.noformat=true -Dfile.encoding=UTF-8 -jar C:\Users\skam6\AppData\Local\Temp\metals9161023162526850581\sbt-launch.jar -Dbloop.export-jar-classifiers=sources bloopInstall'
+2026.05.11 16:55:09 ERROR [info] [launcher] getting org.scala-sbt sbt 1.10.3  (this may take some time)...
+2026.05.11 16:55:09 WARN  no build target for: C:\Users\skam6\Desktop\calendar 2025\project\metals.sbt
+2026.05.11 16:55:09 WARN  no build target for: C:\Users\skam6\Desktop\calendar 2025\project\project\metals.sbt
+2026.05.11 16:55:09 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\project\metals.sbt. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:09 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:10 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\project\project\metals.sbt. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:19 INFO  [info] welcome to sbt 1.10.3 (Microsoft Java 21.0.6)
+2026.05.11 16:55:22 INFO  [info] loading settings for project calendar-2025-build-build from metals.sbt ...
+2026.05.11 16:55:22 INFO  [info] loading project definition from C:\Users\skam6\Desktop\calendar 2025\project\project
+2026.05.11 16:55:25 INFO  [info] loading settings for project calendar-2025-build from metals.sbt ...
+2026.05.11 16:55:25 INFO  [info] loading project definition from C:\Users\skam6\Desktop\calendar 2025\project
+2026.05.11 16:55:32 INFO  [success] Generated .bloop\calendar-2025-build.json
+2026.05.11 16:55:32 INFO  [success] Total time: 6 s, completed 11 May 2026, 16:55:32
+2026.05.11 16:55:33 INFO  [info] loading settings for project root from build.sbt ...
+2026.05.11 16:55:33 INFO  [info] set current project to calendar (in build file:/C:/Users/skam6/Desktop/calendar%202025/)
+2026.05.11 16:55:33 INFO  [warn] scala3-library_3-3.6.4.jar no longer exists at C:\Users\skam6\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.6.4\scala3-library_3-3.6.4.jar
+2026.05.11 16:55:40 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:43 INFO  [warn] scala3-library_3-3.6.4-sources.jar no longer exists at C:\Users\skam6\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.6.4\scala3-library_3-3.6.4-sources.jar
+May 11, 2026 4:55:44 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2026.05.11 16:55:44 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:44 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+May 11, 2026 4:55:45 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 25
+May 11, 2026 4:55:45 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+May 11, 2026 4:55:45 PM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 26
+2026.05.11 16:55:44 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:46 INFO  [success] Generated .bloop\root.json
+2026.05.11 16:55:46 INFO  [success] Generated .bloop\root-test.json
+2026.05.11 16:55:46 INFO  [success] Total time: 12 s, completed 11 May 2026, 16:55:46
+2026.05.11 16:55:46 INFO  time: ran 'sbt bloopInstall' in 36s
+2026.05.11 16:55:46 INFO  Attempting to connect to the build server...
+2026.05.11 16:55:46 INFO  No running Bloop server found, starting one.
+2026.05.11 16:55:48 INFO  no build target found for C:\Users\skam6\Desktop\calendar 2025\src\main\scala\Main.scala. Using presentation compiler with project's scala-library version: 3.3.7
+2026.05.11 16:55:54 INFO  Starting compilation server
+2026.05.11 16:55:55 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\skam6\Desktop\calendar 2025\.metals\bsp.trace.json or C:\Users\skam6\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.05.11 16:55:56 INFO  Attempting to connect to the build server...
+2026.05.11 16:55:56 INFO  Found a Bloop server running
+2026.05.11 16:55:55 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at C:\Users\skam6\Desktop\calendar 2025\project\.metals\bsp.trace.json or C:\Users\skam6\AppData\Local\scalameta\metals\cache\bsp.trace.json
+2026.05.11 16:56:00 INFO  time: Connected to build server in 13s
+2026.05.11 16:56:00 INFO  Connected to Build server: Bloop v2.0.19
+2026.05.11 16:56:00 INFO  time: Imported build in 0.18s
+2026.05.11 16:56:15 WARN  Using H2 2.4.240 which is newer than the version Flyway has been verified with. The latest verified version of H2 is 2.3.232.
+2026.05.11 16:56:27 INFO  time: indexed workspace in 27s
+2026.05.11 16:56:28 INFO  compiling root (6 scala sources)
+exception caught when loading module class module-info$: java.lang.AssertionError: assertion failed: attempt to parse java.lang.Object from classfile
+2026.05.11 16:56:43 INFO  compiling root-test (3 scala sources)
+2026.05.11 16:56:45 INFO  time: compiled root in 16s
+2026.05.11 16:56:48 INFO  time: compiled root-test in 4.82s
+exception caught when loading module class module-info$: java.lang.AssertionError: assertion failed: attempt to parse java.lang.Object from classfile

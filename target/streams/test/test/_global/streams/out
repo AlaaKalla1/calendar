@@ -1,0 +1,19 @@
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(ReminderUtilsTest, org.scalatest.tools.Framework$$anon$1@5bd92d48, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(CalendarTest, org.scalatest.tools.Framework$$anon$1@5bd92d48, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunning TaskDef(EventTest, org.scalatest.tools.Framework$$anon$1@5bd92d48, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mCalendarTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Calendar should add and list events correctly[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mEventTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- Event.duration should correctly calculate the difference between start and end time[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mReminderUtilsTest:[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- ReminderUtils should initialize the timer correctly[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32m- ReminderUtils.playReminderSound should be callable without crash[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 382 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 4[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 3, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 4, failed 0, canceled 0, ignored 0, pending 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mAll tests passed.[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
+[0m[[0m[0mdebug[0m] [0m[0m	EventTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	CalendarTest[0m
+[0m[[0m[0mdebug[0m] [0m[0m	ReminderUtilsTest[0m

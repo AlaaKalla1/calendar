@@ -1,0 +1,160 @@
+#include <cuda_runtime.h>
+#include <math.h>
+#include <stdio.h>
+
+#define cudaCheck(err) \
+    if (err != cudaSuccess) { \
+        printf("CUDA error: %s at line %d\n", cudaGetErrorString(err), __LINE__); \
+        exit(1); \
+    }
+
+// Kernel to calculate correlation between rows
+__global__ void correlate_kernel(int ny, int nx, const float *data,
+                               const float *means, const float *stddevs,
+                               float *result) {
+    int i = blockIdx.y * blockDim.y + threadIdx.y;
+    int j = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (j <= i && i < ny && j < ny) {
+        // Handle diagonal elements
+        if (i == j) {
+            result[i + j * ny] = 1.0f;
+            return;
+        }
+
+        // Skip if either standard deviation is zero
+        if (stddevs[i] <= 0.0f || stddevs[j] <= 0.0f) {
+            result[i + j * ny] = 0.0f;
+            return;
+        }
+
+        float mean_i = means[i];
+        float mean_j = means[j];
+        float stddev_i = stddevs[i];
+        float stddev_j = stddevs[j];
+
+        // Calculate correlation with loop unrolling for better performance
+        float sum = 0.0f;
+        int k = 0;
+
+        // Unroll loop in chunks of 4 for better performance
+        for (; k + 3 < nx; k += 4) {
+            float di1 = (data[i * nx + k] - mean_i) / stddev_i;
+            float dj1 = (data[j * nx + k] - mean_j) / stddev_j;
+
+            float di2 = (data[i * nx + k+1] - mean_i) / stddev_i;
+            float dj2 = (data[j * nx + k+1] - mean_j) / stddev_j;
+
+            float di3 = (data[i * nx + k+2] - mean_i) / stddev_i;
+            float dj3 = (data[j * nx + k+2] - mean_j) / stddev_j;
+
+            float di4 = (data[i * nx + k+3] - mean_i) / stddev_i;
+            float dj4 = (data[j * nx + k+3] - mean_j) / stddev_j;
+
+            sum += di1 * dj1 + di2 * dj2 + di3 * dj3 + di4 * dj4;
+        }
+
+        // Handle remaining elements
+        for (; k < nx; k++) {
+            float di = (data[i * nx + k] - mean_i) / stddev_i;
+            float dj = (data[j * nx + k] - mean_j) / stddev_j;
+            sum += di * dj;
+        }
+
+        result[i + j * ny] = sum;
+    }
+}
+
+void correlate(int ny, int nx, const float *data, float *result) {
+    // For small matrices, use CPU implementation to avoid GPU overhead
+    if (ny <= 100) {
+        for (int i = 0; i < ny; i++) {
+            for (int j = 0; j <= i; j++) {
+                float mean_i = 0.0f, mean_j = 0.0f;
+                for (int k = 0; k < nx; k++) {
+                    mean_i += data[i * nx + k];
+                    mean_j += data[j * nx + k];
+                }
+                mean_i /= nx;
+                mean_j /= nx;
+
+                float num = 0.0f, denom_i = 0.0f, denom_j = 0.0f;
+                for (int k = 0; k < nx; k++) {
+                    float di = data[i * nx + k] - mean_i;
+                    float dj = data[j * nx + k] - mean_j;
+                    num += di * dj;
+                    denom_i += di * di;
+                    denom_j += dj * dj;
+                }
+
+                float denom = sqrtf(denom_i * denom_j);
+                result[i + j * ny] = (denom > 0.0f) ? num / denom : 0.0f;
+            }
+        }
+        return;
+    }
+
+    // Precompute means and standard deviations on CPU
+    float *means = new float[ny];
+    float *stddevs = new float[ny];
+
+    for (int y = 0; y < ny; y++) {
+        float sum = 0.0f;
+        float sum_sq = 0.0f;
+
+        for (int x = 0; x < nx; x++) {
+            float val = data[y * nx + x];
+            sum += val;
+            sum_sq += val * val;
+        }
+
+        means[y] = sum / nx;
+        float variance = (sum_sq / nx) - (means[y] * means[y]);
+        stddevs[y] = sqrtf(variance > 0.0f ? variance : 0.0f);
+    }
+
+    // Allocate device memory
+    float *d_data = nullptr, *d_means = nullptr, *d_stddevs = nullptr, *d_result = nullptr;
+    size_t data_size = ny * nx * sizeof(float);
+    size_t result_size = ny * ny * sizeof(float);
+
+    cudaCheck(cudaMalloc(&d_data, data_size));
+    cudaCheck(cudaMemcpy(d_data, data, data_size, cudaMemcpyHostToDevice));
+
+    cudaCheck(cudaMalloc(&d_means, ny * sizeof(float)));
+    cudaCheck(cudaMemcpy(d_means, means, ny * sizeof(float), cudaMemcpyHostToDevice));
+
+    cudaCheck(cudaMalloc(&d_stddevs, ny * sizeof(float)));
+    cudaCheck(cudaMemcpy(d_stddevs, stddevs, ny * sizeof(float), cudaMemcpyHostToDevice));
+
+    cudaCheck(cudaMalloc(&d_result, result_size));
+    cudaCheck(cudaMemset(d_result, 0, result_size));
+
+    // Launch kernel with optimized grid/block configuration
+    dim3 blockDim(16, 16);  // Balanced for both small and large matrices
+    dim3 gridDim((ny + blockDim.x - 1) / blockDim.x, (ny + blockDim.y - 1) / blockDim.y);
+
+    correlate_kernel<<<gridDim, blockDim>>>(ny, nx, d_data, d_means, d_stddevs, d_result);
+    cudaCheck(cudaGetLastError());
+    cudaCheck(cudaDeviceSynchronize());
+
+    // Copy results back
+    cudaCheck(cudaMemcpy(result, d_result, result_size, cudaMemcpyDeviceToHost));
+
+    // Clean up
+    cudaCheck(cudaFree(d_data));
+    cudaCheck(cudaFree(d_means));
+    cudaCheck(cudaFree(d_stddevs));
+    cudaCheck(cudaFree(d_result));
+    delete[] means;
+    delete[] stddevs;
+}
+
+
+
+
+
+
+
+
+
